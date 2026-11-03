@@ -737,4 +737,39 @@ body.final-creatures>.workspace,body.final-epic>.workspace,body.final-summons>.w
 <style id="poland-micro-border">
 #final-site-shell .preview-language-menu [data-final-lang="pl"] img,
 #final-site-shell .preview-language-dropdown:has([data-final-lang="pl"][aria-pressed="true"]) .preview-language-trigger img{outline:1px solid #000!important;outline-offset:0!important}
+</style><style id="home-loot-shortcut-refinement">
+.loot-heading-single{min-height:48px!important;padding:6px 10px!important}
+.loot-heading-single .relic-loot-shortcut{min-height:36px!important;gap:9px!important}
+.loot-heading-single .relic-loot-shortcut img{width:26px!important;height:26px!important;filter:brightness(1.18) saturate(1.15) drop-shadow(0 1px 3px #0008)}
+.loot-heading-single .relic-loot-shortcut span{font-size:13px!important}
+#final-site-shell a[href*="relicloot"] img,.final-site-nav a[href*="relicloot"] img{opacity:1!important;filter:brightness(1.3) saturate(1.22) drop-shadow(0 0 4px #e8bd5b66)!important}
 </style>
+<script id="home-loot-shortcut-label">
+(()=>{function update(){document.querySelectorAll('.relic-loot-shortcut span').forEach(n=>{if(n.textContent!=='Tibia Relic')n.textContent='Tibia Relic';});}update();new MutationObserver(update).observe(document.querySelector('.right')||document.body,{childList:true,subtree:true});})();
+</script>
+<style id="loot-shortcut-icon-visibility">
+.loot-heading-single .relic-loot-shortcut img{width:30px!important;height:30px!important;opacity:1!important;filter:brightness(1.32) contrast(1.12) saturate(1.2) drop-shadow(0 0 3px #e5ad404d)!important}
+</style>
+<style id="home-loot-split-heading">
+.shortcut-loot>.loot-heading-single{display:grid!important;grid-template-columns:104px minmax(0,1fr)!important;gap:0!important;padding:0!important;min-height:58px!important}
+.loot-heading-single .relic-loot-shortcut{width:auto!important;margin:8px 10px!important;min-height:40px!important;padding:3px 10px!important;display:flex!important;align-items:center!important;justify-content:center!important;border:1px solid #9b864d!important;border-radius:3px;background:#333329!important}
+.loot-heading-single .relic-loot-shortcut img{width:34px!important;height:34px!important}
+.loot-heading-single .relic-loot-shortcut span{display:none!important}
+.loot-heading-single .loot-shortcut-title{display:flex;align-items:center;justify-content:center;align-self:stretch;margin:0;padding:10px 12px;border-left:1px solid #77715d;color:#ead49e;font:500 17px Georgia,serif;letter-spacing:.3px;background:none;cursor:default}
+</style>
+<script id="home-loot-split-heading-behavior">
+(()=>{function refine(){document.querySelectorAll('.loot-heading-single').forEach(head=>{const link=head.querySelector('.relic-loot-shortcut');if(link){link.title='Relic Loot';link.setAttribute('aria-label','Relic Loot');}if(!head.querySelector('.loot-shortcut-title')){const label=document.createElement('h2');label.className='loot-shortcut-title';label.textContent='Loot Shortcut';head.append(label);}});}refine();new MutationObserver(refine).observe(document.querySelector('.right')||document.body,{childList:true,subtree:true});})();
+</script>
+<style id="home-tibia-relic-icon-label">
+.shortcut-loot>.loot-heading-single{grid-template-columns: minmax(145px,42%) minmax(0,1fr)!important}
+.loot-heading-single .relic-loot-shortcut{gap:7px!important;padding:3px 7px!important;margin-inline:8px!important}
+.loot-heading-single .relic-loot-shortcut span{display:inline!important;font:12px Arial,sans-serif!important;white-space:nowrap;color:#ead49e}
+.loot-heading-single .relic-loot-shortcut img{width:30px!important;height:30px!important}
+</style>
+<script id="home-tibia-relic-icon-label-behavior">
+(()=>{function label(){document.querySelectorAll('.relic-loot-shortcut').forEach(link=>{const text=link.querySelector('span');if(text&&text.textContent!=='Tibia Relic')text.textContent='Tibia Relic';});}label();new MutationObserver(label).observe(document.querySelector('.right')||document.body,{childList:true,subtree:true});})();
+</script>
+<script id="home-top-loot-link">
+(()=>{const nav=document.querySelector('#final-site-shell nav');if(!nav||nav.querySelector('a[href*="relicloot"]'))return;const source=document.querySelector('.relic-loot-shortcut img'),template=nav.querySelector('a');if(!source||!template)return;const link=template.cloneNode(true);link.removeAttribute('aria-current');link.href='https://relichub.github.io/relicloot/';link.title='Tibia Relic';link.setAttribute('aria-label','Tibia Relic');link.replaceChildren(source.cloneNode(true));const name=document.createElement('span');name.textContent='Tibia Relic';link.append(name);const marker=nav.querySelector('a[href*="calculator"]');nav.insertBefore(link,marker);})();
+</script>
+<style id="top-loot-icon-visible">#final-site-shell nav a[href*="relicloot"] img{opacity:1!important;filter:brightness(1.25) saturate(1.15) drop-shadow(0 0 3px #d7ac4b66)!important}</style>
