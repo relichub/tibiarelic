@@ -49,3 +49,6 @@ form.addEventListener('submit',async e=>{
 dialog.querySelector('.rh-contact-again').addEventListener('click',()=>{formView.hidden=false;resultView.hidden=true;dialog.setAttribute('aria-labelledby','rh-contact-title');message.focus()});
 
 setLanguage(current);
+
+function syncContactWithSite(){const code=(document.documentElement.lang||"en").split("-")[0];setLanguage(translations[code]?code:"en")}
+new MutationObserver(syncContactWithSite).observe(document.documentElement,{attributes:true,attributeFilter:["lang"]});syncContactWithSite();
