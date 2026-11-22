@@ -9,7 +9,7 @@ es:{launch:'¿Encontraste un error?',language:'Idioma del formulario',close:'Cer
 let current='pt';try{const saved=localStorage.getItem('rh-contact-language');if(translations[saved])current=saved}catch{}
 function setLanguage(code){
  current=translations[code]?code:'pt';const t=translations[current];language.value=current;language.setAttribute('aria-label',t.language);dialog.lang=current;openButton.lang=current;
- openButton.querySelector('span').textContent=t.launch;dialog.querySelector('.rh-contact-close').setAttribute('aria-label',t.close);
+ openButton.querySelector('span').textContent=t.launch;openButton.setAttribute('aria-label',t.launch);dialog.querySelector('.rh-contact-close').setAttribute('aria-label',t.close);
  document.getElementById('rh-contact-title').textContent=t.title;const intro=document.getElementById('rh-contact-intro'),promise=document.createElement('strong');promise.textContent=t.promise;intro.replaceChildren(document.createTextNode(t.intro+' '),promise);
  const nameLabel=dialog.querySelector('label[for="rh-contact-name"]'),optional=document.createElement('span');optional.textContent=t.optional;nameLabel.replaceChildren(document.createTextNode(t.name+' '),optional);
  document.getElementById('rh-contact-name').placeholder=t.namePlaceholder;dialog.querySelector('label[for="rh-contact-message"]').textContent=t.message;message.placeholder=t.placeholder;message.setCustomValidity('');
@@ -22,9 +22,9 @@ function setLanguage(code){
  try{localStorage.setItem('rh-contact-language',current)}catch{}
 }
 language.addEventListener('change',()=>setLanguage(language.value));
-openButton.addEventListener('click',()=>{dialog.showModal();message.focus()});
-dialog.querySelector('.rh-contact-close').addEventListener('click',()=>dialog.close());
-dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
+const reduceMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;let closing=false;function openContact(){if(dialog.open)return;dialog.showModal();if(!reduceMotion())dialog.animate([{opacity:0,transform:'translateY(12px) scale(.98)'},{opacity:1,transform:'translateY(0) scale(1)'}],{duration:280,easing:'cubic-bezier(.2,.7,.25,1)'});message.focus({preventScroll:true})}async function closeContact(){if(closing||!dialog.open)return;closing=true;if(!reduceMotion())try{await dialog.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(8px)'}],{duration:180,easing:'ease-in'}).finished}catch{}dialog.close();closing=false}openButton.addEventListener('click',openContact);dialog.addEventListener('cancel',e=>{e.preventDefault();closeContact()});
+dialog.querySelector('.rh-contact-close').addEventListener('click',()=>closeContact());
+dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeContact()}});
 dialog.addEventListener('close',()=>openButton.focus());
 message.addEventListener('input',()=>{document.getElementById('rh-contact-count').textContent=`${message.value.length} / 1500`;message.setCustomValidity('')});
 const delivery={
