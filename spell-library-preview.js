@@ -13,5 +13,5 @@ nav.querySelectorAll('[data-sp-voc]').forEach(b=>b.onclick=()=>{vocation=b.datas
 showSpells=function(id){vocation=vocations[id]?id:'ms';state={q:'',group:'',kind:'',sort:'ml'};opened.clear();history.replaceState(null,'','#spells/'+vocation);renderSpells()};new MutationObserver(()=>{if(active)renderSpells()}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 })();
 
-function routeSpellLibrary(){const match=location.hash.match(/^#(?:library\/)?spells(?:\/(ms|ed|rp|ek))?$/);if(match)showSpells(match[1]||'ms')}window.addEventListener('load',()=>requestAnimationFrame(routeSpellLibrary),{once:true});window.addEventListener('hashchange',routeSpellLibrary);
+function routeSpellLibrary(){const match=location.hash.match(/^#(?:library\/)?spells(?:\/(ms|ed|rp|ek))?$/);if(match)showSpells(match[1]||'ms')}document.addEventListener('DOMContentLoaded',routeSpellLibrary,{once:true});window.addEventListener('hashchange',routeSpellLibrary);
 
