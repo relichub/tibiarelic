@@ -7,3 +7,4 @@ body .layout.sp-library{grid-template-columns:128px minmax(0,1fr)!important}.sp-
 
 
 body .layout.sp-library>#nav{display:block!important;align-self:start!important;height:auto!important;min-height:0!important;max-height:none!important;flex:0 0 auto!important}
+body .layout.sp-library>#nav{background:transparent!important;border:0!important;box-shadow:none!important;overflow:visible!important}body .sp-library .sp-nav-card{display:flow-root!important;height:auto!important;min-height:0!important;background:#30322d;border:1px solid #62604f;border-radius:4px;overflow:hidden}
